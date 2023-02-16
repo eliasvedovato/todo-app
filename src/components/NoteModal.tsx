@@ -12,6 +12,7 @@ export default function NoteModal({ onSave, onChange, onClose, note }: Props) {
 		<section
 			style={{
 				width: '100vw',
+				margin: 'auto',
 				height: '100vh',
 				position: 'fixed',
 				top: '0',

@@ -31,6 +31,7 @@ function App() {
 			})
 		)
 	}
+
 	function handleEdit(note: Note) {
 		setDraft(note)
 	}
@@ -78,8 +79,8 @@ function App() {
 	return (
 		<main>
 			<div style={{ marginBottom: 24 }}>
-				<h1>Mis notas</h1>
-				<div style={{ display: 'flex', gap: 24 }}>
+				<h1 style={{ textAlign: 'center'}}>Mis notas</h1>
+				<div style={{ display: 'flex', justifyContent: 'center', gap: 24, flexWrap: 'wrap' }}>
 					<button className='nes-btn' onClick={() => setDraft({})}>
 						Crear nota
 					</button>
@@ -99,7 +100,7 @@ function App() {
 				style={{
 					display: 'grid',
 					gap: '24px',
-					gridTemplateColumns: 'repeat(auto-fill, minmax(500px, 1fr)',
+					gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr)',
 				}}
 			>
 				{matches.length ? matches.map(note => (
@@ -109,6 +110,7 @@ function App() {
 						onEdit={handleEdit}
 						key={note.id}
 						note={note}
+						view={view}
 					/>
 				)) : <p>No hay notas</p>}
 			</div>
