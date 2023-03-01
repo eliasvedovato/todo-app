@@ -8,7 +8,7 @@ function App() {
 	const [notes, setNotes] = useState<Note[]>(api.notes.list)
 	const [draft, setDraft] = useState<null | Partial<Note>>(null)
 	const [view, setView] = useState<'active' | 'archived'>('active')
-	
+
 	const matches = useMemo(() => {
 		return notes.filter(note => {
 			if (view === 'active') {
@@ -44,7 +44,7 @@ function App() {
 
 					return {
 						...draft,
-						lastEdited: new Date().toString(),
+						lastEdited: new Date().toLocaleDateString(),
 					} as Note
 				})
 			)
@@ -52,7 +52,7 @@ function App() {
 			setNotes(notes =>
 				notes.concat({
 					id: String(+new Date()),
-					lastEdited: new Date().toString(),
+					lastEdited: new Date().toLocaleDateString(),
 					...(draft as Omit<Note, 'id' | 'lastEdited'>),
 				})
 			)
@@ -79,8 +79,15 @@ function App() {
 	return (
 		<main>
 			<div style={{ marginBottom: 24 }}>
-				<h1 style={{ textAlign: 'center'}}>Mis notas</h1>
-				<div style={{ display: 'flex', justifyContent: 'center', gap: 24, flexWrap: 'wrap' }}>
+				<h1 style={{ textAlign: 'center' }}>Mis notas</h1>
+				<div
+					style={{
+						display: 'flex',
+						justifyContent: 'center',
+						gap: 24,
+						flexWrap: 'wrap',
+					}}
+				>
 					<button className='nes-btn' onClick={() => setDraft({})}>
 						Crear nota
 					</button>
@@ -98,21 +105,28 @@ function App() {
 			</div>
 			<div
 				style={{
-					display: 'grid',
-					gap: '24px',
-					gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr)',
+					display: 'flex',
+					flexDirection: 'row',
+					justifyContent: 'center',
+					// alignItems: 'center',
+					gap: 10,
+					flexWrap: 'wrap',
 				}}
 			>
-				{matches.length ? matches.map(note => (
-					<NoteCard
-						onArchive={handleArchive}
-						onDelete={handleDelete}
-						onEdit={handleEdit}
-						key={note.id}
-						note={note}
-						view={view}
-					/>
-				)) : <p>No hay notas</p>}
+				{matches.length ? (
+					matches.map(note => (
+						<NoteCard
+							onArchive={handleArchive}
+							onDelete={handleDelete}
+							onEdit={handleEdit}
+							key={note.id}
+							note={note}
+							view={view}
+						/>
+					))
+				) : (
+					<p>No hay notas</p>
+				)}
 			</div>
 			{/* si tenemos un draft vamos a mostrar ese note modal */}
 			{draft && (

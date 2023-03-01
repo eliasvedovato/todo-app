@@ -10,7 +10,17 @@ type Props = {
 
 export function NoteCard({ note, view, onArchive, onEdit, onDelete }: Props) {
 	return (
-		<div className='nes-container'>
+		<div
+			style={{
+				maxWidth: 450,
+				display: 'flex',
+				flexDirection: 'column',
+				alignItems: 'center',
+				justifyContent: 'center',
+				border: '3px solid black',
+				padding: 20
+			}}
+		>
 			<h3
 				style={{
 					textAlign: 'center',
@@ -20,6 +30,16 @@ export function NoteCard({ note, view, onArchive, onEdit, onDelete }: Props) {
 			>
 				{note.title}
 			</h3>
+			<p
+				style={{
+					wordBreak: 'break-word',
+					textAlign: 'center',
+					borderBottom: '2px solid black',
+					paddingBottom: 20,
+				}}
+			>
+				Descripcion: {note.content}
+			</p>
 			<p
 				style={{
 					wordBreak: 'break-word',
